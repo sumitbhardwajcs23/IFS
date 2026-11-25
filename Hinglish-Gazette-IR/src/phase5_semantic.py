@@ -8,7 +8,6 @@ from typing import Any
 
 import faiss
 import numpy as np
-from sentence_transformers import SentenceTransformer
 
 from src.config import (
     CHUNKS_JSONL_PATH,
@@ -38,8 +37,10 @@ class SemanticRetriever:
         self.normalizer = HinglishNormalizer()
 
     @property
-    def model(self) -> SentenceTransformer:
+    def model(self) -> Any:
         if self._model is None:
+            from sentence_transformers import SentenceTransformer
+
             self._model = SentenceTransformer(self.model_name)
         return self._model
 
@@ -61,7 +62,12 @@ class SemanticRetriever:
         batch_size: int = EMBEDDING_BATCH_SIZE,
         model: Any | None = None,
     ) -> "SemanticRetriever":
-        embed_model = model or SentenceTransformer(model_name)
+        if model is None:
+            from sentence_transformers import SentenceTransformer
+
+            embed_model = SentenceTransformer(model_name)
+        else:
+            embed_model = model
         passages = [
             f"passage: {c.get('category', '')} | {c.get('ministry', '')} | {c.get('retrieval_text', c['text'])}"
             for c in chunks

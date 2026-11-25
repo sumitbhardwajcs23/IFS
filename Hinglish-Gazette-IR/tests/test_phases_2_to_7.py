@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 import numpy as np
-from fastapi.testclient import TestClient
 
-from src.api import create_app
+from src.api import CompareRequest, SearchRequest, create_app
 from src.phase2_chunker import build_clause_chunks
 from src.phase3_normalizer import HinglishNormalizer, hinglish_phonetic_key
 from src.phase4_bm25 import BM25Retriever
@@ -159,17 +158,20 @@ def test_phase7_fastapi_endpoints() -> None:
     semantic = SemanticRetriever.build_from_chunks(chunks, model=_DummyEmbeddingModel())
     hybrid = HybridRetriever(bm25_retriever=bm25, semantic_retriever=semantic)
 
-    client = TestClient(create_app(retriever=hybrid))
-    assert client.get("/health").status_code == 200
-    search_resp = client.post(
-        "/search",
-        json={"query": "Mahila maternity leave", "top_k": 2, "mode": "hybrid"},
-    )
-    assert search_resp.status_code == 200
-    body = search_resp.json()
-    assert len(body["results"]) == 2
-    assert body["results"][0]["heading"] == "Maternity Benefit Rules"
+    application = create_app(retriever=hybrid)
+    routes = {route.path: route.endpoint for route in application.routes if hasattr(route, "endpoint")}
+    assert {"/health", "/documents", "/normalize", "/search", "/compare"}.issubset(routes.keys())
 
-    cmp_resp = client.post("/compare", json={"query": "Jameen adhigrahan", "top_k": 2})
-    assert cmp_resp.status_code == 200
-    assert "hybrid_rrf" in cmp_resp.json()
+    health_body = routes["/health"]()
+    assert health_body["status"] == "ok"
+    assert health_body["chunks_count"] == len(chunks)
+
+    search_body = routes["/search"](
+        SearchRequest(query="Mahila maternity leave", top_k=2, mode="hybrid")
+    )
+    assert len(search_body["results"]) == 2
+    assert search_body["results"][0]["heading"] == "Maternity Benefit Rules"
+
+    cmp_body = routes["/compare"](CompareRequest(query="Jameen adhigrahan", top_k=2))
+    assert "hybrid_rrf" in cmp_body
+    assert cmp_body["hybrid_rrf"][0]["heading"] == "Land Acquisition"
