@@ -10,12 +10,13 @@ Phonetic and Dialect-Aware Hybrid Information Retrieval System for Code-Mixed (H
 - `data/cleaned/` — Cleaned Gazette documents (`documents.jsonl`), parsed clauses (`clauses.jsonl`), and SQLite database (`gazettes.db`).
 - `data/processed/` — Clause-aware retrieval chunks (`chunks.jsonl`).
 - `data/index/` — Persisted BM25 (`bm25.pkl`) and Multilingual-E5 FAISS (`faiss.index`, `semantic_meta.json`) indices.
-- `src/` — Pipeline modules (`config.py`, `krutidev.py`, `phase1_dataset.py`, `phase1_extractor.py`, `phase1_cleaner.py`, `phase2_chunker.py`, `phase3_normalizer.py`, `phase4_bm25.py`, `phase5_semantic.py`, `phase6_hybrid.py`, `api.py`, `storage.py`).
-- `scripts/` — CLI entrypoints (`run_phase1.py`, `add_gazette_pdfs.py`, `build_indices.py`).
-- `app.py` — Streamlit search & comparison UI.
-- `tests/` — Automated tests (`test_phase1.py`, `test_phases_2_to_7.py`).
+- `data/eval/` — 200-query Hinglish evaluation benchmark (`queries_200.jsonl`) and ablation reports (`eval_results.json`, `comparison_table.csv`, `per_category_metrics.csv`).
+- `src/` — Pipeline modules (`config.py`, `krutidev.py`, `phase1_dataset.py`, `phase1_extractor.py`, `phase1_cleaner.py`, `phase2_chunker.py`, `phase3_normalizer.py`, `phase4_bm25.py`, `phase5_semantic.py`, `phase6_hybrid.py`, `phase8_dataset.py`, `phase8_eval.py`, `api.py`, `storage.py`).
+- `scripts/` — CLI entrypoints (`run_phase1.py`, `add_gazette_pdfs.py`, `build_indices.py`, `run_phase8_eval.py`).
+- `app.py` — Streamlit search, comparison & benchmark UI.
+- `tests/` — Automated tests (`test_phase1.py`, `test_phases_2_to_7.py`, `test_phase8.py`).
 
-## Quickstart (Phases 1–7)
+## Quickstart (Phases 1–8)
 
 ```powershell
 # Activate virtual environment
@@ -31,6 +32,9 @@ python scripts/build_indices.py
 uvicorn src.api:app --host 127.0.0.1 --port 8000
 streamlit run app.py
 
-# 4. Run all automated tests
+# 4. Phase 8: Build 200 Hinglish queries & run IR benchmark (P@10, R@10, MRR@10, nDCG@10)
+python scripts/run_phase8_eval.py
+
+# 5. Run all automated tests
 pytest
 ```

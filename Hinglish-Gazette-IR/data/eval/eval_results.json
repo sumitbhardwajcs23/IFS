@@ -1,0 +1,375 @@
+{
+  "k": 10,
+  "granularity": "chunk",
+  "num_queries": 200,
+  "summary": [
+    {
+      "system_key": "bm25_raw",
+      "system": "BM25 (Raw Baseline)",
+      "num_queries": 200,
+      "precision@10": 0.0925,
+      "recall@10": 0.2719,
+      "mrr@10": 0.2305,
+      "ndcg@10": 0.2246,
+      "avg_latency_ms": 10.26
+    },
+    {
+      "system_key": "bm25_normalized",
+      "system": "BM25 + Phonetic/Dialect",
+      "num_queries": 200,
+      "precision@10": 0.1025,
+      "recall@10": 0.2989,
+      "mrr@10": 0.2632,
+      "ndcg@10": 0.2548,
+      "avg_latency_ms": 15.48
+    },
+    {
+      "system_key": "semantic_e5",
+      "system": "Multilingual-E5 Semantic",
+      "num_queries": 200,
+      "precision@10": 0.1375,
+      "recall@10": 0.3789,
+      "mrr@10": 0.4224,
+      "ndcg@10": 0.335,
+      "avg_latency_ms": 18.65
+    },
+    {
+      "system_key": "hybrid_rrf",
+      "system": "Proposed Hybrid RRF",
+      "num_queries": 200,
+      "precision@10": 0.145,
+      "recall@10": 0.4132,
+      "mrr@10": 0.4632,
+      "ndcg@10": 0.3702,
+      "avg_latency_ms": 34.14
+    }
+  ],
+  "per_category": [
+    {
+      "system_key": "bm25_raw",
+      "system": "BM25 (Raw Baseline)",
+      "query_type": "dialect_regional",
+      "num_queries": 50,
+      "precision@10": 0.088,
+      "recall@10": 0.2397,
+      "mrr@10": 0.2037,
+      "ndcg@10": 0.1975
+    },
+    {
+      "system_key": "bm25_raw",
+      "system": "BM25 (Raw Baseline)",
+      "query_type": "informal_question",
+      "num_queries": 50,
+      "precision@10": 0.108,
+      "recall@10": 0.3248,
+      "mrr@10": 0.2593,
+      "ndcg@10": 0.2652
+    },
+    {
+      "system_key": "bm25_raw",
+      "system": "BM25 (Raw Baseline)",
+      "query_type": "normal_hinglish",
+      "num_queries": 50,
+      "precision@10": 0.086,
+      "recall@10": 0.2922,
+      "mrr@10": 0.229,
+      "ndcg@10": 0.2255
+    },
+    {
+      "system_key": "bm25_raw",
+      "system": "BM25 (Raw Baseline)",
+      "query_type": "phonetic_typo",
+      "num_queries": 50,
+      "precision@10": 0.088,
+      "recall@10": 0.2307,
+      "mrr@10": 0.2301,
+      "ndcg@10": 0.2102
+    },
+    {
+      "system_key": "bm25_normalized",
+      "system": "BM25 + Phonetic/Dialect",
+      "query_type": "dialect_regional",
+      "num_queries": 50,
+      "precision@10": 0.104,
+      "recall@10": 0.2814,
+      "mrr@10": 0.245,
+      "ndcg@10": 0.2376
+    },
+    {
+      "system_key": "bm25_normalized",
+      "system": "BM25 + Phonetic/Dialect",
+      "query_type": "informal_question",
+      "num_queries": 50,
+      "precision@10": 0.108,
+      "recall@10": 0.328,
+      "mrr@10": 0.2942,
+      "ndcg@10": 0.2895
+    },
+    {
+      "system_key": "bm25_normalized",
+      "system": "BM25 + Phonetic/Dialect",
+      "query_type": "normal_hinglish",
+      "num_queries": 50,
+      "precision@10": 0.09,
+      "recall@10": 0.3004,
+      "mrr@10": 0.2248,
+      "ndcg@10": 0.2331
+    },
+    {
+      "system_key": "bm25_normalized",
+      "system": "BM25 + Phonetic/Dialect",
+      "query_type": "phonetic_typo",
+      "num_queries": 50,
+      "precision@10": 0.108,
+      "recall@10": 0.2857,
+      "mrr@10": 0.2887,
+      "ndcg@10": 0.2589
+    },
+    {
+      "system_key": "semantic_e5",
+      "system": "Multilingual-E5 Semantic",
+      "query_type": "dialect_regional",
+      "num_queries": 50,
+      "precision@10": 0.102,
+      "recall@10": 0.3014,
+      "mrr@10": 0.3205,
+      "ndcg@10": 0.2312
+    },
+    {
+      "system_key": "semantic_e5",
+      "system": "Multilingual-E5 Semantic",
+      "query_type": "informal_question",
+      "num_queries": 50,
+      "precision@10": 0.126,
+      "recall@10": 0.3859,
+      "mrr@10": 0.4478,
+      "ndcg@10": 0.3631
+    },
+    {
+      "system_key": "semantic_e5",
+      "system": "Multilingual-E5 Semantic",
+      "query_type": "normal_hinglish",
+      "num_queries": 50,
+      "precision@10": 0.19,
+      "recall@10": 0.4828,
+      "mrr@10": 0.5682,
+      "ndcg@10": 0.4516
+    },
+    {
+      "system_key": "semantic_e5",
+      "system": "Multilingual-E5 Semantic",
+      "query_type": "phonetic_typo",
+      "num_queries": 50,
+      "precision@10": 0.132,
+      "recall@10": 0.3457,
+      "mrr@10": 0.353,
+      "ndcg@10": 0.2943
+    },
+    {
+      "system_key": "hybrid_rrf",
+      "system": "Proposed Hybrid RRF",
+      "query_type": "dialect_regional",
+      "num_queries": 50,
+      "precision@10": 0.124,
+      "recall@10": 0.3562,
+      "mrr@10": 0.3851,
+      "ndcg@10": 0.3041
+    },
+    {
+      "system_key": "hybrid_rrf",
+      "system": "Proposed Hybrid RRF",
+      "query_type": "informal_question",
+      "num_queries": 50,
+      "precision@10": 0.146,
+      "recall@10": 0.4263,
+      "mrr@10": 0.462,
+      "ndcg@10": 0.3879
+    },
+    {
+      "system_key": "hybrid_rrf",
+      "system": "Proposed Hybrid RRF",
+      "query_type": "normal_hinglish",
+      "num_queries": 50,
+      "precision@10": 0.164,
+      "recall@10": 0.487,
+      "mrr@10": 0.5447,
+      "ndcg@10": 0.434
+    },
+    {
+      "system_key": "hybrid_rrf",
+      "system": "Proposed Hybrid RRF",
+      "query_type": "phonetic_typo",
+      "num_queries": 50,
+      "precision@10": 0.146,
+      "recall@10": 0.3834,
+      "mrr@10": 0.461,
+      "ndcg@10": 0.3549
+    }
+  ],
+  "improvements_pct": {
+    "vs_bm25_raw": {
+      "precision@10": 56.76,
+      "recall@10": 51.97,
+      "mrr@10": 100.95,
+      "ndcg@10": 64.83
+    },
+    "vs_bm25_normalized": {
+      "precision@10": 41.46,
+      "recall@10": 38.24,
+      "mrr@10": 75.99,
+      "ndcg@10": 45.29
+    },
+    "vs_semantic_e5": {
+      "precision@10": 5.45,
+      "recall@10": 9.05,
+      "mrr@10": 9.66,
+      "ndcg@10": 10.51
+    }
+  },
+  "details": {
+    "bm25_raw": {
+      "label": "BM25 (Raw Baseline)",
+      "overall": {
+        "precision@10": 0.0925,
+        "recall@10": 0.2719,
+        "mrr@10": 0.2305,
+        "ndcg@10": 0.2246
+      },
+      "avg_latency_ms": 10.26,
+      "by_query_type": {
+        "dialect_regional": {
+          "precision@10": 0.088,
+          "recall@10": 0.2397,
+          "mrr@10": 0.2037,
+          "ndcg@10": 0.1975
+        },
+        "informal_question": {
+          "precision@10": 0.108,
+          "recall@10": 0.3248,
+          "mrr@10": 0.2593,
+          "ndcg@10": 0.2652
+        },
+        "normal_hinglish": {
+          "precision@10": 0.086,
+          "recall@10": 0.2922,
+          "mrr@10": 0.229,
+          "ndcg@10": 0.2255
+        },
+        "phonetic_typo": {
+          "precision@10": 0.088,
+          "recall@10": 0.2307,
+          "mrr@10": 0.2301,
+          "ndcg@10": 0.2102
+        }
+      }
+    },
+    "bm25_normalized": {
+      "label": "BM25 + Phonetic/Dialect",
+      "overall": {
+        "precision@10": 0.1025,
+        "recall@10": 0.2989,
+        "mrr@10": 0.2632,
+        "ndcg@10": 0.2548
+      },
+      "avg_latency_ms": 15.48,
+      "by_query_type": {
+        "dialect_regional": {
+          "precision@10": 0.104,
+          "recall@10": 0.2814,
+          "mrr@10": 0.245,
+          "ndcg@10": 0.2376
+        },
+        "informal_question": {
+          "precision@10": 0.108,
+          "recall@10": 0.328,
+          "mrr@10": 0.2942,
+          "ndcg@10": 0.2895
+        },
+        "normal_hinglish": {
+          "precision@10": 0.09,
+          "recall@10": 0.3004,
+          "mrr@10": 0.2248,
+          "ndcg@10": 0.2331
+        },
+        "phonetic_typo": {
+          "precision@10": 0.108,
+          "recall@10": 0.2857,
+          "mrr@10": 0.2887,
+          "ndcg@10": 0.2589
+        }
+      }
+    },
+    "semantic_e5": {
+      "label": "Multilingual-E5 Semantic",
+      "overall": {
+        "precision@10": 0.1375,
+        "recall@10": 0.3789,
+        "mrr@10": 0.4224,
+        "ndcg@10": 0.335
+      },
+      "avg_latency_ms": 18.65,
+      "by_query_type": {
+        "dialect_regional": {
+          "precision@10": 0.102,
+          "recall@10": 0.3014,
+          "mrr@10": 0.3205,
+          "ndcg@10": 0.2312
+        },
+        "informal_question": {
+          "precision@10": 0.126,
+          "recall@10": 0.3859,
+          "mrr@10": 0.4478,
+          "ndcg@10": 0.3631
+        },
+        "normal_hinglish": {
+          "precision@10": 0.19,
+          "recall@10": 0.4828,
+          "mrr@10": 0.5682,
+          "ndcg@10": 0.4516
+        },
+        "phonetic_typo": {
+          "precision@10": 0.132,
+          "recall@10": 0.3457,
+          "mrr@10": 0.353,
+          "ndcg@10": 0.2943
+        }
+      }
+    },
+    "hybrid_rrf": {
+      "label": "Proposed Hybrid RRF",
+      "overall": {
+        "precision@10": 0.145,
+        "recall@10": 0.4132,
+        "mrr@10": 0.4632,
+        "ndcg@10": 0.3702
+      },
+      "avg_latency_ms": 34.14,
+      "by_query_type": {
+        "dialect_regional": {
+          "precision@10": 0.124,
+          "recall@10": 0.3562,
+          "mrr@10": 0.3851,
+          "ndcg@10": 0.3041
+        },
+        "informal_question": {
+          "precision@10": 0.146,
+          "recall@10": 0.4263,
+          "mrr@10": 0.462,
+          "ndcg@10": 0.3879
+        },
+        "normal_hinglish": {
+          "precision@10": 0.164,
+          "recall@10": 0.487,
+          "mrr@10": 0.5447,
+          "ndcg@10": 0.434
+        },
+        "phonetic_typo": {
+          "precision@10": 0.146,
+          "recall@10": 0.3834,
+          "mrr@10": 0.461,
+          "ndcg@10": 0.3549
+        }
+      }
+    }
+  }
+}

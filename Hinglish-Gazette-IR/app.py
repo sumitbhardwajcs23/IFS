@@ -9,7 +9,14 @@ import httpx
 import pandas as pd
 import streamlit as st
 
-from src.config import CATEGORY_TARGETS, DOCUMENTS_JSONL_PATH, MANIFEST_PATH
+from src.config import (
+    CATEGORY_TARGETS,
+    DOCUMENTS_JSONL_PATH,
+    EVAL_CATEGORY_CSV_PATH,
+    EVAL_COMPARISON_CSV_PATH,
+    EVAL_RESULTS_PATH,
+    MANIFEST_PATH,
+)
 from src.phase1_dataset import dataset_target_progress
 from src.phase4_bm25 import BM25Retriever
 from src.phase5_semantic import SemanticRetriever
@@ -168,8 +175,13 @@ def main() -> None:
         st.divider()
         st.markdown(f"**Backend:** {'FastAPI (`' + API_URL + '`)' if api_up else 'Direct Local Index'}")
 
-    tab_search, tab_compare, tab_corpus = st.tabs(
-        ["Search Gazettes", "Compare BM25 vs Semantic vs Hybrid", "Dataset & Corpus"]
+    tab_search, tab_compare, tab_eval, tab_corpus = st.tabs(
+        [
+            "Search Gazettes",
+            "Compare BM25 vs Semantic vs Hybrid",
+            "Evaluation Benchmark (200 Queries)",
+            "Dataset & Corpus",
+        ]
     )
 
     with tab_search:
@@ -250,6 +262,34 @@ def main() -> None:
                                 st.markdown(f"**#{h.get('rank', '-')}** ({h['doc_id']}, p.{h['page_start']})")
                                 st.caption((h.get("heading") or "")[:90])
                                 st.write((h.get("text") or "")[:240] + "...")
+
+    with tab_eval:
+        if EVAL_COMPARISON_CSV_PATH.exists() and EVAL_CATEGORY_CSV_PATH.exists():
+            import json
+
+            st.subheader("Phase 8 Benchmark — 200 Hinglish Queries (Chunk-Level @10)")
+            comp_df = pd.read_csv(EVAL_COMPARISON_CSV_PATH)
+            st.dataframe(comp_df.drop(columns=["system_key"]), use_container_width=True)
+
+            chart_df = comp_df.set_index("system")[["precision@10", "recall@10", "mrr@10", "ndcg@10"]]
+            st.bar_chart(chart_df)
+
+            if EVAL_RESULTS_PATH.exists():
+                eval_json = json.loads(EVAL_RESULTS_PATH.read_text(encoding="utf-8"))
+                gains = eval_json.get("improvements_pct", {}).get("vs_bm25_raw", {})
+                if gains:
+                    st.markdown("**Hybrid RRF Relative Gain vs. Raw BM25 Baseline:**")
+                    gcols = st.columns(4)
+                    gcols[0].metric("Precision@10", f"+{gains.get('precision@10', 0):.1f}%")
+                    gcols[1].metric("Recall@10", f"+{gains.get('recall@10', 0):.1f}%")
+                    gcols[2].metric("MRR@10", f"+{gains.get('mrr@10', 0):.1f}%")
+                    gcols[3].metric("nDCG@10", f"+{gains.get('ndcg@10', 0):.1f}%")
+
+            st.subheader("Breakdown by Hinglish Query Style (50 Queries Each)")
+            cat_df = pd.read_csv(EVAL_CATEGORY_CSV_PATH)
+            st.dataframe(cat_df.drop(columns=["system_key"]), use_container_width=True)
+        else:
+            st.info("Run `python scripts/run_phase8_eval.py` to generate the 200-query benchmark report.")
 
     with tab_corpus:
         if MANIFEST_PATH.exists():

@@ -10,6 +10,7 @@ EXTRACTED_DIR = DATA_DIR / "extracted"
 CLEANED_DIR = DATA_DIR / "cleaned"
 PROCESSED_DIR = DATA_DIR / "processed"
 INDEX_DIR = DATA_DIR / "index"
+EVAL_DIR = DATA_DIR / "eval"
 MANIFEST_PATH = DATA_DIR / "manifest.csv"
 
 # Phase 1 artifacts
@@ -24,6 +25,12 @@ CHUNKS_JSONL_PATH = PROCESSED_DIR / "chunks.jsonl"
 BM25_INDEX_PATH = INDEX_DIR / "bm25.pkl"
 FAISS_INDEX_PATH = INDEX_DIR / "faiss.index"
 SEMANTIC_META_PATH = INDEX_DIR / "semantic_meta.json"
+
+# Phase 8 evaluation artifacts
+EVAL_QUERIES_PATH = EVAL_DIR / "queries_200.jsonl"
+EVAL_RESULTS_PATH = EVAL_DIR / "eval_results.json"
+EVAL_COMPARISON_CSV_PATH = EVAL_DIR / "comparison_table.csv"
+EVAL_CATEGORY_CSV_PATH = EVAL_DIR / "per_category_metrics.csv"
 
 # Dataset planning targets from project spec (100 PDFs total)
 CATEGORY_TARGETS = {
