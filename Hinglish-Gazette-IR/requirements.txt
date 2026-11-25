@@ -1,0 +1,21 @@
+# Phase 1: Dataset, PDF Extraction, OCR & Cleaning
+pymupdf>=1.24.0
+pytesseract>=0.3.13
+pillow>=10.4.0
+pandas>=2.2.0
+numpy>=1.26.0
+tqdm>=4.66.0
+
+# Phase 2-6: Retrieval, Embeddings & Vector Index
+rank-bm25>=0.2.2
+sentence-transformers>=3.0.0
+faiss-cpu>=1.8.0
+
+# Phase 7: Backend & Frontend
+fastapi>=0.115.0
+uvicorn>=0.30.0
+streamlit>=1.37.0
+httpx>=0.27.0
+
+# Testing
+pytest>=8.3.0

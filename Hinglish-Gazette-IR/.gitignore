@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/extracted/
+data/cleaned/
+data/processed/
+data/index/
+*.db
+*.sqlite
+*.log

@@ -1,0 +1,10 @@
+[project]
+name = "hinglish-gazette-ir"
+version = "0.1.0"
+description = "Phonetic and Dialect-Aware Hybrid Information Retrieval System for Code-Mixed (Hinglish) Queries over Formal Government Gazettes"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
